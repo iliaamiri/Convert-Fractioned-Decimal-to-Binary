@@ -5,7 +5,16 @@
 *
 * */
 
-function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 50){
+// EXAMPLE:
+let result = fractionDecimalToBinary(1/64);
+let result2 = fractionDecimalToBinary(1/3);
+let result3 = fractionDecimalToBinary(1/100);
+
+console.log(result)
+console.log(result2)
+console.log(result3)
+
+function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 1000){
     if(dec >= 1 || dec <= 0){
         return false;
     }
@@ -43,10 +52,20 @@ function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 50)
 
     finalValue = (!highlyAccurate) ? Number(finalValue) : finalValue;
 
+    let repetitivePattern = "";
+
+    if (isRecurring) {
+        repetitivePattern = subFinalValue;
+    } else if(isFinite){
+        repetitivePattern = "No Pattern";
+    } else {
+        repetitivePattern = "Infinity";
+    }
+
     return {
         'finalValue': finalValue,
         'isFinite': isFinite,
-        'repetitivePattern': (isRecurring) ? subFinalValue : "Infinity"
+        'repetitivePattern': repetitivePattern
     };
 
 }
@@ -90,12 +109,3 @@ function countRepeatingPattern(str) {
 function isStringRepeating(str) {
     return countRepeatingPattern(str) !== str.length;
 }
-
-// EXAMPLE:
-let result = fractionDecimalToBinary(1/64);
-let result2 = fractionDecimalToBinary(1/3);
-let result3 = fractionDecimalToBinary(1/100);
-
-console.log(result)
-console.log(result2)
-console.log(result3)
