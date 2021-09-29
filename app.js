@@ -3,17 +3,17 @@
 * Developed by Eiliya (Ilia) Abedianamiri. Github Account: https://github.com/iliaamiri
 * Date Released: September 25, 2021
 *
-* */
+*
 
 // EXAMPLE:
-let result = fractionDecimalToBinary(1/64, false, 2000);
+let result = BSS;
 let result2 = fractionDecimalToBinary(1/3);
 let result3 = fractionDecimalToBinary(1/100);
 
 console.log(result)
 console.log(result2)
 console.log(result3)
-
+*/
 /**
  *
  * @number dec
@@ -134,4 +134,8 @@ function countRepeatingPattern(str) {
 
 function isStringRepeating(str) {
     return countRepeatingPattern(str) !== str.length;
+}
+
+module.exports = {
+    fractionDecimalToBinary
 }
