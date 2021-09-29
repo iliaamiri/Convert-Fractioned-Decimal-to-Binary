@@ -26,10 +26,10 @@ console.log(result3)
  * @returns {boolean|{repetitivePattern: string, finalValue: (*|string), isFinite: boolean}}
  */
 
-function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 1000){
+function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 1000) {
 
     // check if the decimal number is in fractions. IF NOT: exit silently.
-    if(dec >= 1 || dec <= 0){
+    if (dec >= 1 || dec <= 0) {
         return false;
     }
 
@@ -44,7 +44,7 @@ function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 100
 
     let i = 1;
     // multiply the decimal number by 2 until the fraction or the number gets equal to zero.
-    while(dec !== 0 || getFractionPart(dec) !== 0){
+    while (dec !== 0 || getFractionPart(dec) !== 0) {
         dec = dec * 2;
 
         // store the non-fraction part in binaryList as string.
@@ -56,14 +56,14 @@ function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 100
         /* check if there's any patterns in the string.
        
          the i variable is to make sure the binary string is big enough in order for finding a pattern.*/
-        if (isStringRepeating(binaryList) && i >= 50){
+        if (isStringRepeating(binaryList) && i >= 50) {
             isFinite = false;
             isRecurring = true;
             break;
         }
         /* if there was no pattern, the loop will stop after i is greater than the accuracyBits. 
          The higher the accuracyBits is, the result would be more accurate.*/
-        if(i >= accuracyBits){
+        if (i >= accuracyBits) {
             isFinite = false;
             break;
         }
@@ -80,11 +80,12 @@ function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 100
 
     let repetitivePattern = "";
 
+    // if the answer is recurring, sets the repetitive pattern variable to the pattern.
     if (isRecurring) {
         repetitivePattern = subFinalValue;
-    } else if(isFinite){
+    } else if (isFinite) { // if the answer is not recurring but is finite, it does not have any pattern.
         repetitivePattern = "No Pattern";
-    } else {
+    } else { // if the answer is not recurring nor finite, it is infinite.
         repetitivePattern = "Infinity";
     }
 
@@ -96,6 +97,12 @@ function fractionDecimalToBinary(dec, highlyAccurate = false, accuracyBits = 100
 
 }
 
+/**
+ * Gets the non-fraction part of a number (i.e. non-fraction part of 1.223 is 1).
+ *
+ * @param {number} dec
+ * @returns {number}
+ */
 function getNonFractionPart(dec) {
     let stringDec = dec.toString();
 
@@ -104,19 +111,32 @@ function getNonFractionPart(dec) {
     return Number(splitStringDec[0]);
 }
 
+/**
+ * Gets the fraction part of a number (i.e. fraction part of 1.223 is 0.223).
+ *
+ * @param {number} dec
+ * @returns {number}
+ */
 function getFractionPart(dec) {
     let stringDec = dec.toString();
 
     let splitStringDec = stringDec.split(".");
 
-    if (splitStringDec[1] === undefined){
+    if (splitStringDec[1] === undefined) {
         return 0;
     }
 
     return Number("0." + splitStringDec[1]);
 }
 
-function getNewDecimal(dec){
+
+/**
+ * Substitutes the number with its non-fraction part (i.e. New decimal for 1.223 would be: 1.223 - 1 = 0.223).
+ *
+ * @param {number} dec
+ * @returns {number}
+ */
+function getNewDecimal(dec) {
     let stringDec = dec.toString();
 
     let splitStringDec = stringDec.split(".");
@@ -128,10 +148,23 @@ function getNewDecimal(dec){
     return Number(newStringDec);
 }
 
+/**
+ * Counts the repeating pattern of a string (i.e. in 110111011101, there is the 1101 pattern that repeats three times.
+ *
+ * @param {string} str
+ * @returns {number}
+ */
 function countRepeatingPattern(str) {
     return (str + str).indexOf(str, 1);
 }
 
+/**
+ * Finds whether a string has a repeating pattern (i.e. in 110111011101, there's a pattern 1101. However, in 110111,
+ * there is no pattern.
+ *
+ * @param {string} str
+ * @returns {boolean}
+ */
 function isStringRepeating(str) {
     return countRepeatingPattern(str) !== str.length;
 }
