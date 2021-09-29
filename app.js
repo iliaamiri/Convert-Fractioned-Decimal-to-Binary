@@ -6,7 +6,7 @@
 *
 
 // EXAMPLE:
-let result = BSS;
+let result = fractionDecimalToBinary(1/5, false, 5000);
 let result2 = fractionDecimalToBinary(1/3);
 let result3 = fractionDecimalToBinary(1/100);
 
